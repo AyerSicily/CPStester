@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="免费设备故障检测工具 - 鼠标、显示器、键盘、耳机、麦克风一键检测">
+    <title>设备故障检测工具</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 完整CSS代码在下一步创建 */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tools"></i> 设备故障检测工具</h1>
+            <p>快速诊断鼠标、显示器、键盘等设备问题</p>
+        </header>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab active" data-tab="mouse"><i class="fas fa-mouse"></i> 鼠标检测</button>
+                <button class="tab" data-tab="display"><i class="fas fa-desktop"></i> 显示器检测</button>
+                <button class="tab" data-tab="keyboard"><i class="fas fa-keyboard"></i> 键盘检测</button>
+                <button class="tab" data-tab="audio"><i class="fas fa-headphones"></i> 扬声器/耳机</button>
+                <button class="tab" data-tab="microphone"><i class="fas fa-microphone"></i> 麦克风检测</button>
+            </div>
+
+            <div class="tab-content-container">
+                <!-- 鼠标检测部分 -->
+                <div id="mouse" class="tab-content active">
+                    <h2><i class="fas fa-mouse"></i> 鼠标功能测试</h2>
+                    <div class="test-area" id="mouse-test-area">
+                        <p>1. 在此区域内移动鼠标：<span id="mouse-move-status"><i class="fas fa-times-circle"></i> 未检测到移动</span></p>
+                        <p>2. 点击下方按钮：<span id="mouse-click-status"><i class="fas fa-times-circle"></i> 未检测到点击</span></p>
+                        <button id="mouse-test-btn">点此测试</button>
+                        <div class="cursor-trail"></div>
+                    </div>
+                    <div class="results">
+                        <div class="result-card">
+                            <h3><i class="fas fa-lightbulb"></i> 检测建议</h3>
+                            <p id="mouse-result">未开始检测 - 请使用鼠标在测试区域内移动并点击</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 显示器检测部分 -->
+                <div id="display" class="tab-content">
+                    <h2><i class="fas fa-desktop"></i> 显示器检测</h2>
+                    <div class="test-area">
+                        <p>观察下方色块是否显示正常：</p>
+                        <div class="color-grid">
+                            <div class="color-box" style="background-color: #ff0000;"></div>
+                            <div class="color-box" style="background-color: #00ff00;"></div>
+                            <div class="color-box" style="background-color: #0000ff;"></div>
+                            <div class="color-box" style="background-color: #ffffff;"></div>
+                            <div class="color-box" style="background-color: #000000; border: 1px solid #30363d;"></div>
+                        </div>
+                        <p>检查是否有坏点或色差问题</p>
+                    </div>
+                    <div class="results">
+                        <div class="result-card">
+                            <h3><i class="fas fa-lightbulb"></i> 检测建议</h3>
+                            <p id="display-result">请检查每个色块是否显示纯正颜色，注意死点或色差区域</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 键盘检测部分 -->
+                <div id="keyboard" class="tab-content">
+                    <h2><i class="fas fa-keyboard"></i> 键盘检测</h2>
+                    <div class="test-area">
+                        <p>在下方输入框内按下键盘各键：</p>
+                        <textarea id="keyboard-input" placeholder="在此按下键盘按键进行测试..."></textarea>
+                        <div class="key-status" id="keyboard-feedback">
+                            状态：<span><i class="fas fa-circle-notch fa-spin"></i> 等待按键输入</span>
+                        </div>
+                    </div>
+                    <div class="results">
+                        <div class="result-card">
+                            <h3><i class="fas fa-lightbulb"></i> 检测建议</h3>
+                            <p id="keyboard-result">按下键盘按键并确认它们注册成功</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 扬声器/耳机检测部分 -->
+                <div id="audio" class="tab-content">
+                    <h2><i class="fas fa-headphones"></i> 扬声器/耳机检测</h2>
+                    <div class="test-area">
+                        <p>点击播放按钮，听到声音表示正常：</p>
+                        <div class="audio-controls">
+                            <button id="play-sound"><i class="fas fa-play"></i> 播放测试音</button>
+                            <button id="stop-sound" disabled><i class="fas fa-stop"></i> 停止</button>
+                        </div>
+                        <div class="audio-visualizer">
+                            <div class="bar" style="--height: 5%;"></div>
+                            <div class="bar" style="--height: 25%;"></div>
+                            <div class="bar" style="--height: 45%;"></div>
+                            <div class="bar" style="--height: 65%;"></div>
+                            <div class="bar" style="--height: 85%;"></div>
+                        </div>
+                        <div id="audio-status">状态：<i class="fas fa-pause"></i> 未播放</div>
+                    </div>
+                    <div class="results">
+                        <div class="result-card">
+                            <h3><i class="fas fa-lightbulb"></i> 检测建议</h3>
+                            <p id="audio-result">按下播放按钮并确认听到声音</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 麦克风检测部分 -->
+                <div id="microphone" class="tab-content">
+                    <h2><i class="fas fa-microphone"></i> 麦克风检测</h2>
+                    <div class="test-area">
+                        <p>点击开始检测，允许使用麦克风：</p>
+                        <button id="start-mic-test"><i class="fas fa-microphone-alt"></i> 开始检测</button>
+                        <div class="mic-container">
+                            <div class="mic-level" id="mic-level">
+                                <div class="level-bar"></div>
+                            </div>
+                            <div class="mic-label">音量指示器</div>
+                        </div>
+                        <div id="mic-status">状态：<i class="fas fa-microphone-slash"></i> 未开始</div>
+                    </div>
+                    <div class="results">
+                        <div class="result-card">
+                            <h3><i class="fas fa-lightbulb"></i> 检测建议</h3>
+                            <p id="mic-result">开始测试并对着麦克风说话，查看音量指示器是否反应</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <section id="ad-container">
+            <div class="ad-label">广告支持</div>
+            <div class="ad-content">
+                <div id="ad-space">
+                    <p><i class="fas fa-ad"></i> 广告位置示例</p>
+                    <p>检测功能100%免费提供</p>
+                    <p>通过广告支持我们持续运营</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="features">
+            <div class="feature">
+                <i class="fas fa-bolt"></i>
+                <h3>快速检测</h3>
+                <p>60秒内完成全套设备检测</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-lock"></i>
+                <h3>安全无痕</h3>
+                <p>无需安装，直接在浏览器中使用</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-hand-holding-usd"></i>
+                <h3>完全免费</h3>
+                <p>零成本检测设备故障</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2023 设备故障检测工具 | 免费提供 | 技术支持</p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-github"></i> GitHub项目</a>
+                <a href="#"><i class="fas fa-question-circle"></i> 帮助中心</a>
+                <a href="#"><i class="fas fa-envelope"></i> 联系我们</a>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // JavaScript将在下一步完整添加
+    </script>
+</body>
+</html>
