@@ -1,1 +1,1 @@
-# device-tester
+# CPS tester
